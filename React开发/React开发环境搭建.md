@@ -10,6 +10,7 @@ cd react-demo && npm start
 ```
 
 - 搭建TS版本的React项目
+
 ```shell
 npx create-react-app react-ts-demo -template typescript
 
