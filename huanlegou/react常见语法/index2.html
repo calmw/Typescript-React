@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React</title>
+    <style>
+        .red {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<p>JSX中的html语法要求比较严格，例如标签未闭合，就编译不过</p>
+<p>
+    react项目中直接在JSX中的标签直接用class=""是可以的，但是推荐使用className="red"这种格式，
+    这种是JSX语法，虽然class显示也没问题
+</p>
+<p>JSX中使用变量，外面加{},{}中可以是变量也可以是JS表达式</p>
+<p>JSX中行内样式的style,可以是个对象，也可以是个变量</p>
+<p>登陆部分展示了如何根据条件展示不同组件，可以用三元表达式，也可以用取反或者短路符</p>
+<div id="root">
+</div>
+</body>
+</html>
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin=""></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin=""></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin=""></script>
+<script type="text/babel">
+    //type="text/babel" 为了支持JSX
+    // 组件
+    // 组件名称必须是大写开头的驼峰命名法
+    const var1 = "Cisco"
+    const style1 = {
+        color: 'blue'
+    }
+    const isLogin = true
+
+    function LikeBtn() {
+        // JSX 语法
+        return (
+            <button className="red" onClick={() => alert('Like button clicked!')}>
+                Click {var1}
+                <br/>
+                <span>Hello, {var1 ? 1 : 2}</span>
+            </button>
+        )
+        // react 基础写法
+        // return React.createElement('button', {
+        //     onClick: () => alert('Like button clicked!')
+        // }, 'Click')
+    }
+
+    function SomeText() {
+        const login = isLogin ? <Login/> : <UnLogin/>
+        // JSX 语法
+        return (
+            <>
+                <p style={style1}>
+                    这是一行文字
+                </p>
+                <p style={{color: "tan"}}>
+                    这是一行文字
+                </p>
+                <p>是否登陆：{isLogin ? <Login/> : <UnLogin/>}</p>
+                <p>是否登陆：{isLogin && <Login/>}</p>
+                <p>是否登陆：{!isLogin && <UnLogin/>}</p>
+                <p>是否登陆：{login}</p>
+            </>
+        )
+
+        function Login() {
+            return (
+                <span>
+                    Already login
+                </span>
+            )
+        }
+
+        function UnLogin() {
+            return (
+                <span>
+                    Haven't login
+                </span>
+            )
+        }
+
+        // react 基础写法
+        // return React.createElement('button', {
+        //     onClick: () => alert('Like button clicked!')
+        // }, 'Click')
+    }
+
+    function MyApp() {
+        return (
+            <div>
+                <h1>Hello, React!</h1>
+                <LikeBtn/>
+                <SomeText/>
+            </div>
+        )
+    }
+
+    // 获取一个页面跟节点
+    const rootElement = document.getElementById('root');
+    // 创建一个react根实例
+    const root = ReactDOM.createRoot(rootElement)
+    // 使用跟实例渲染一个组件
+    root.render(React.createElement(MyApp));
+</script>

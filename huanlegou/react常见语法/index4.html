@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React</title>
+    <style>
+        .red {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<p>子夫组件传递数据，如果多个组件共同修改一个值，需要将hook定义在这多个组件公共的上层函数里面</p>
+<p>父组件通过属性的方式传递给子组件</p>
+<div id="root">
+</div>
+</body>
+</html>
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin=""></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin=""></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin=""></script>
+<script type="text/babel">
+    const products = [
+        {title: 'a', id: 1, type: 't1'},
+        {title: 'b', id: 2, type: 't2'},
+        {title: 'c', id: 3, type: 't3'},
+        {title: 'd', id: 4, type: 't4'}
+    ]
+
+    function Product({count, setCount}) {
+        const list = products.map((product, i) => {
+                return (
+                    <li
+                        key={product.id}
+                        style={{color: product.type === 't1' ? 'red' : 'aqua'}}
+                        onClick={() => {
+                            alert(`Clicked on ${product.title},index is ${i}`);
+                            setCount(count + 1)
+                        }
+                        }
+                    >
+                        <h2>{product.title}</h2>
+                    </li>
+                )
+            }
+        )
+        return (
+            <div>
+                <ul>
+                    {list}
+                </ul>
+            </div>
+        )
+    }
+
+    function MyApp() {
+        const [count, setCount] = React.useState(0); // 0 是count的初始值
+        return (
+            <div>
+                <h1>Hello, React! count:{count}</h1>
+                <Product count={count} setCount={setCount}/>
+                <Product count={count} setCount={setCount}/>
+            </div>
+        )
+    }
+
+    // 获取一个页面跟节点
+    const rootElement = document.getElementById('root');
+    // 创建一个react根实例
+    const root = ReactDOM.createRoot(rootElement)
+    // 使用跟实例渲染一个组件
+    root.render(React.createElement(MyApp));
+</script>
