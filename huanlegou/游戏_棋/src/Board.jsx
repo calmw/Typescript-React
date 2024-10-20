@@ -3,12 +3,21 @@ import {useState} from "react";
 
 function Board() {
     const [squares, setSquares] = useState(Array(9).fill(null))
+
+    function getNextLetter(squares) {
+        const filledCount = squares.filter(item => item !== null).length // 返回squares中已经填充的总数量。squares.filter返回的是一个数组
+        return filledCount % 2 === 0 ? "X" : "O";
+    }
+
+    const nextLetter = getNextLetter(squares);
+    let nextPlayer = null;
+    if (nextLetter) {
+        nextPlayer = nextLetter;
+    }
     const clickHandler = (index) => {
         if (squares[index]) {
             return
         }
-        const filledCount = squares.filter(item => item !== null).length // 返回squares中已经填充的总数量。squares.filter返回的是一个数组
-        const nextLetter = filledCount % 2 === 0 ? "X" : "O";
         const newSquares = squares.slice() // 生成一个新的数组切片，相当于clone，可选参数可以指定起始索引
         newSquares[index] = nextLetter
         console.log(index)
@@ -19,6 +28,7 @@ function Board() {
     }
     return (
         <>
+            <p>Next Player: {nextPlayer}</p>
             <div className="board-row">
                 {/*属性里面传递onclick可以理解为表达式的传递*/}
                 <Square value={squares[0]} onClick={clickHandler} index={0}/>
