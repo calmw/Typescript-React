@@ -1,6 +1,8 @@
-function Square({value}) {
+function Square({value, onClick, index}) {
     return (
-        <div className="square">{value}</div>
+        <div className="square" onClick={() => {
+            onClick(index)
+        }}>{value}</div>
     )
 }
 
