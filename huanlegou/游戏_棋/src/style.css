@@ -1,0 +1,16 @@
+.board-row {
+    clear: both;
+    display: block;
+}
+
+.square {
+    background-color: #fff;
+    border: 1px solid #999;
+    float: left;
+    height: 35px;
+    width: 35px;
+    margin-right: -1px;
+    margin-bottom: -1px;
+    line-height: 35px;
+    text-align: center;
+}
